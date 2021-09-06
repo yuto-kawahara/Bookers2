@@ -1,0 +1,47 @@
+<!--編集画面-->
+<h1>Editing Book</h1>
+<%= form_with model: @book, local: true do |f| %>
+  <!--エラーメッセージの表示-->
+  <% if @book.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= @book.errors.count %>errors prohibited this book from being saved:
+      </h2>
+      <ul>
+        <% @book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!--タイトル-->
+  <div class="field">
+    <% if @book.errors.added?(:title, :blank) %>
+      <div class="field_with_errors">
+        <%= f.label:Title %><br>
+      </div>
+        <%= f.text_field :title %><br>
+    <% else %>
+        <%= f.label:Title %><br>
+        <%= f.text_field :title %><br>
+    <% end %>
+  </div>
+  <!--本文-->
+  <div class="field">
+    <% if @book.errors.added?(:body, :blank) %>
+      <div class="field_with_errors">
+        <%= f.label:Body %><br>
+      </div>
+        <%= f.text_area :body %><br>
+    <% else %>
+        <%= f.label:Body %><br>
+        <%= f.text_area :body %><br>
+    <% end %>
+  </div>
+  <div class="action">
+    <%= f.submit 'Update Book' %><br>
+  </div>
+  <%= link_to "Show", book_path(@book) %>
+   |  
+  <%= link_to "Back", books_path %>
+<% end %>
