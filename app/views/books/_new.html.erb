@@ -1,0 +1,54 @@
+<h2>User info</h2>
+<%= attachment_image_tag user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
+<%= user.name %>
+<%= user.introduction %>
+<% if user == current_user %>
+  <%= link_to "プロフィール編集", edit_user_path(user) %>
+<% else %>
+  <%= link_to "プロフィール編集" %>
+<% end %>
+<!--新規投稿-->
+<h2>New book</h2>
+<%= form_with model: new_book, local:true do |book| %>
+  <!--エラーメッセージの表示-->
+  <% if new_book.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= new_book.errors.count %>errors prohibited this book from being saved:
+      </h2>
+      <ul>
+        <% new_book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!--タイトル-->
+  <div class="field">
+    <% if new_book.errors.added?(:title, :blank) %>
+      <div class="field_with_errors">
+        <%= book.label:Title %><br>
+      </div>
+        <%= book.text_field :title %><br>
+    <% else %>
+        <%= book.label:Title %><br>
+        <%= book.text_field :title %><br>
+    <% end %>
+  </div>
+  <!--本文-->
+  <div class="field">
+    <% if new_book.errors.added?(:body, :blank) %>
+      <div class="field_with_errors">
+        <%= book.label:Body %><br>
+      </div>
+        <%= book.text_area :body %><br>
+    <% else %>
+        <%= book.label:Body %><br>
+        <%= book.text_area :body %><br>
+    <% end %>
+  </div>
+  <!--投稿-->
+  <div class="action">
+    <%= book.submit 'Create Book' %>
+  </div>
+<% end %>

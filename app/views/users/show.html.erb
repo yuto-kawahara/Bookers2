@@ -1,0 +1,5 @@
+<% if flash[:notice] %>
+  <p id="notice"><%= flash[:notice] %></p>
+<% end %>
+<%= render 'books/new', new_book: @new_book, user: @user %>
+<%= render 'books/list', all_books: @all_books %>
