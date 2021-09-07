@@ -16,3 +16,38 @@
 @import "bootstrap";
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
+
+div.field, div.actions {
+    margin-bottom: 10px;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+table {
+    border-collapse: collapse;
+}
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+.table th, .table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.fa-user-cog:before {
+    content: "\f4fe";
+}
+
+#notice {
+    color: green;
+}
+
+#error_explanation {
+    color: red;
+}

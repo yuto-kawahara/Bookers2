@@ -1,5 +1,8 @@
-<% if flash[:notice] %>
-  <p id="notice"><%= flash[:notice] %></p>
-<% end %>
-<%= render 'books/new', new_book: @new_book, user: @user %>
-<%= render 'books/list', all_books: @all_books %>
+<div class="row">
+  <div class="col-md-3">
+    <%= render 'books/new', new_book: @new_book, user: @user %>
+  </div>
+  <div class="col-md-8 offset-md-1">
+    <%= render 'books/list', all_books: @all_books %>
+  </div>
+</div>

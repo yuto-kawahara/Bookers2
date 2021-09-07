@@ -1,54 +1,56 @@
 <h2>User info</h2>
-<%= attachment_image_tag user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
-<%= user.name %>
-<%= user.introduction %>
-<% if user == current_user %>
-  <%= link_to "プロフィール編集", edit_user_path(user) %>
-<% else %>
-  <%= link_to "プロフィール編集" %>
-<% end %>
-<!--新規投稿-->
-<h2>New book</h2>
+<%= attachment_image_tag user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg", class: "profile_image" %>
+<table class="table">
+  <tbody>
+    <tr></tr>
+    <tr>
+	    <th>name</th>
+	    <th><%= user.name %></th>
+    </tr>
+    <tr>
+      <th>introduction</th>
+	    <th><%= user.introduction %></th>
+    </tr>
+  </tbody>
+</table>
 <%= form_with model: new_book, local:true do |book| %>
-  <!--エラーメッセージの表示-->
-  <% if new_book.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= new_book.errors.count %>errors prohibited this book from being saved:
-      </h2>
-      <ul>
-        <% new_book.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+  <table>
+    <div class="row">
+      <% if user == current_user %>
+        <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
+          <i class="fas fa-user-cog"></i>
         <% end %>
-      </ul>
+      <% else %>
+        <%= link_to user_path(current_user.id), class: "btn btn-outline-secondary btn-block" do %>
+          <i class="fas fa-user-cog"></i>
+        <% end %>
+      <% end %>
     </div>
-  <% end %>
-  <!--タイトル-->
-  <div class="field">
-    <% if new_book.errors.added?(:title, :blank) %>
-      <div class="field_with_errors">
-        <%= book.label:Title %><br>
+    <h2 class="mt-3">New book</h2>
+      <div class="form-group">
+        <% if new_book.errors.added?(:title, :blank) %>
+          <div class="field_with_errors">
+            <%= book.label:Title %>
+          </div>
+          <%= book.text_field :title, class: "form-control" %>
+        <% else %>
+          <%= book.label:Title %>
+          <%= book.text_field :title, class: "form-control" %>
+        <% end %>
       </div>
-        <%= book.text_field :title %><br>
-    <% else %>
-        <%= book.label:Title %><br>
-        <%= book.text_field :title %><br>
-    <% end %>
-  </div>
-  <!--本文-->
-  <div class="field">
-    <% if new_book.errors.added?(:body, :blank) %>
-      <div class="field_with_errors">
-        <%= book.label:Body %><br>
+      <div class="form-group">
+        <% if new_book.errors.added?(:body, :blank) %>
+          <div class="field_with_errors">
+            <%= book.label:Opinion %>
+          </div>
+          <%= book.text_area :body, class: "form-control" %>
+        <% else %>
+          <%= book.label:Opinion %>
+          <%= book.text_area :body, class: "form-control" %>
+        <% end %>
       </div>
-        <%= book.text_area :body %><br>
-    <% else %>
-        <%= book.label:Body %><br>
-        <%= book.text_area :body %><br>
-    <% end %>
-  </div>
-  <!--投稿-->
-  <div class="action">
-    <%= book.submit 'Create Book' %>
-  </div>
+      <div class="form-group">
+        <%= book.submit 'Create Book', class: "btn btn-success" %>
+      </div>
+  </table>
 <% end %>
