@@ -9,6 +9,7 @@ class BooksController < ApplicationController
     @user = Book.find(params[:id]).user
     @new_book = current_user.books.new
     @book = Book.find(params[:id])
+    @book_comment = BookComment.new
     redirect_to books_path if @book.blank?
   end
   
