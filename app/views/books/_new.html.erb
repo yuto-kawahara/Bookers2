@@ -11,6 +11,27 @@
       <th>introduction</th>
 	    <th><%= user.introduction %></th>
     </tr>
+    <tr>
+      <th>follows</th>
+	    <th>
+	      <%= link_to user.follower.count, follows_user_path(user) %>
+	    </th>
+    </tr>
+    <tr>
+      <th>followers</th>
+	    <th><%= link_to user.followed.count, followers_user_path(user) %></th>
+    </tr>
+    <tr>
+      <th>
+        <% if user != current_user %>
+          <% if current_user.following?(user) %>
+            <%= link_to 'フォロー解除', user_relationships_path(user.id), method: :delete, class: "btn-sm btn-danger" %>
+          <% else %>
+            <%= link_to 'フォローする', user_relationships_path(user.id), method: :POST, class: "btn-sm btn-success" %>
+          <% end %>
+        <% end %>
+      </th>
+    </tr>
   </tbody>
 </table>
 <%= form_with model: new_book, local:true do |book| %>

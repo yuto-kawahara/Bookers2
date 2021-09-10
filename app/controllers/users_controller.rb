@@ -32,6 +32,18 @@ class UsersController < ApplicationController
     redirect_to user_path(resource), notice: "Welcome! You have signed up successfully."
   end
   
+  def follows
+    @new_book = current_user.books.new
+    @user = User.find(params[:id])
+    @users = @user.following_user
+  end
+
+  def followers
+    @new_book = current_user.books.new
+    @user = User.find(params[:id])
+    @users = @user.follower_user
+  end
+  
   private
 
   def user_params
