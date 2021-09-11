@@ -15,5 +15,5 @@ Rails.application.routes.draw do
   end
   resources :searches, only: [:index] 
   get 'searches/search'
-  post 'searches/search'
+  # post 'searches/search'
 end
