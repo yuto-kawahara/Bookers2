@@ -1,0 +1,14 @@
+<div class="search_form">
+  <% if user_signed_in? %>
+    <%= form_tag(searches_search_path, method: :get) do %>
+      <div>
+        <%= select(@content, :search_model, [["User","User"], ["Book","Book"]], class: "form-control") %>
+        <%= select(@content, :search_method,[["前方一致","forward_match"],["後方一致","backward_match"],["完全一致","perfect_match"],["部分一致","partial_match"]], class: "form-control") %>
+        <%= text_field(@content, :search_word) %>
+	      <span>
+          <%= submit_tag("検索", class: "btn btn-sm btn-success") %>
+	      </span>
+      </div>
+    <% end %>
+  <% end %>
+</div>

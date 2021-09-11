@@ -1,0 +1,15 @@
+<%= render 'searches/search' %>
+<div class="row">
+  <div class="col-md-3">
+    <%= render 'books/new', new_book: @new_book, user: current_user %>
+  </div>
+  <div class="col-md-8 offset-md-1">
+    <% if @model == "User" %>
+      <h2>Users search for "<%=@word%>"</h2>
+      <%= render 'users/list', users: @result %>
+    <% else %>
+      <h2>Books search for "<%=@word%>"</h2>
+      <%= render 'books/list', all_books: @result %>
+    <%end%>
+  </div>
+</div>
