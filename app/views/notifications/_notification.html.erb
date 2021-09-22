@@ -1,31 +1,15 @@
 ﻿<div>
   <span>
     <% visitor = notification.visitor %>
-    <% visited = notification.visited %>
     <%= link_to user_path(visitor) do %>
       <%= attachment_image_tag visitor, :profile_image, :fill, 40, 40, fallback: "no_image.jpg", size:"40x40", class: "rounded-circle bd-placeholder-img align-self-center mx-3"%>
-      <strong><%= visitor.name %></strong>
     <% end %>
-    <%= "さんが" %>
-    <% case notification.action %>
-      <% when 'follow' then %>
-        <%="あなたをフォローしました"%> 
-      <% when 'favorite' then %>
-        <%= link_to 'あなたの投稿', notification.book, style: "font-weight: bold;" %> 
-        <%= "にいいねしました" %>
-      <% when 'comment' then %>
-        <% if notification.book.user_id == visited.id %>
-          <%= link_to "あなたの投稿", notification.book, style: "font-weight: bold;" %>
-        <% else %>
-          <span>
-            <%= link_to book_path(notification.book) do %>
-              <%= attachment_image_tag notification.book.user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg", size:"40x40", class: "rounded-circle bd-placeholder-img align-self-center mx-3"%>
-              <strong><%= notification.book.user.name + 'さんの投稿' %></strong>
-            <% end %>
-          </span>  
-        <% end %>
-        <%= "にコメントしました" %>
-        <p><%=BookComment.find_by(id: notification.book_comment_id)&.comment %></p>
+    <%= notification_form(notification) %>
+    <span class="moderate-font"><%= " (#{time_ago_in_words(notification.created_at)} 前)" %></span>
+    <br>
+    <% if !@comment.nil? %>
+      <p class="moderate-font text-center" style="color: #C0C0C0;"><%= @comment %></p>
     <% end %>
+    <hr>
   </span>
 </div>
