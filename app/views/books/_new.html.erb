@@ -23,13 +23,9 @@
     </tr>
     <tr>
       <th>
-        <% if user != current_user %>
-          <% if current_user.following?(user) %>
-            <%= link_to 'フォロー解除', user_relationships_path(user.id), method: :delete, class: "btn-sm btn-danger" %>
-          <% else %>
-            <%= link_to 'フォローする', user_relationships_path(user.id), method: :POST, class: "btn-sm btn-success" %>
-          <% end %>
-        <% end %>
+        <div id="follow_btn_<%= user.id %>">
+          <%= render partial: 'relationships/follow-btn', locals: { user: user} %>
+        </div>
       </th>
     </tr>
   </tbody>

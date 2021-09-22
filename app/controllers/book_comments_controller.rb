@@ -4,6 +4,7 @@ class BookCommentsController < ApplicationController
     @book_comment = current_user.book_comments.new(comment_params)
     @book_comment.book_id = @book.id
     @book_comment.save
+    @book.create_notification_comment!(current_user, @book_comment.id)
     @book_comment = BookComment.new
     # redirect_to book_path(book_comment.book_id)
   end
