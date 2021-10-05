@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_05_025238) do
+ActiveRecord::Schema.define(version: 2021_10_05_075857) do
 
   create_table "book_comments", force: :cascade do |t|
     t.text "comment"
@@ -43,6 +43,24 @@ ActiveRecord::Schema.define(version: 2021_10_05_025238) do
     t.integer "book_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "group_users", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_group_users_on_group_id"
+    t.index ["user_id"], name: "index_group_users_on_user_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.text "introduction"
+    t.string "image_id"
+    t.string "owner_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "impressions", force: :cascade do |t|
@@ -128,6 +146,8 @@ ActiveRecord::Schema.define(version: 2021_10_05_025238) do
 
   add_foreign_key "entries", "rooms"
   add_foreign_key "entries", "users"
+  add_foreign_key "group_users", "groups"
+  add_foreign_key "group_users", "users"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
   add_foreign_key "relationships", "users", column: "followed_id"

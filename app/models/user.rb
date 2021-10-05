@@ -17,6 +17,8 @@ class User < ApplicationRecord
   validates :introduction,length: { maximum: 50 }
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
+  has_many :group_users, dependent: :destroy
+
   def follow(user)
     follower.create(followed_id: user.id)
   end
