@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  impressionist :actions=> [:show], unique: [:impressionable_id, :ip_address]
   def index
     @all_users = User.all
     to  = Time.current.at_end_of_day
@@ -18,6 +19,8 @@ class BooksController < ApplicationController
     @new_book = current_user.books.new
     @book = Book.find(params[:id])
     @book_comment = BookComment.new
+    impressionist(@book, nil, unique: [:impressionable_id, :ip_address])
+    # binding.pry
     redirect_to books_path if @book.blank?
   end
   

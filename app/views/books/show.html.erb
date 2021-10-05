@@ -30,6 +30,9 @@
               <%= render partial: 'book_comments/comment-count', locals: { book: @book} %>            
             </div>
           </td>
+          <td>
+            閲覧数：<%= @book.impressionist_count %>
+          </td>
         </tr>
       </tbody>
     </table>
