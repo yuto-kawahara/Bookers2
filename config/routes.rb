@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   get 'searches/search'
   # post 'searches/search'
   resources :notifications, only: :index
+  resources :messages, only: [:create]
+  resources :rooms, only: [:create,:show]
 end

@@ -15,7 +15,8 @@ class User < ApplicationRecord
   attachment :profile_image
   validates :name, presence: true, uniqueness: true, length: { minimum: 2, maximum: 20 }
   validates :introduction,length: { maximum: 50 }
-  
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
   def follow(user)
     follower.create(followed_id: user.id)
   end

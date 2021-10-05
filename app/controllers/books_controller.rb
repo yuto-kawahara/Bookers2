@@ -8,7 +8,7 @@ class BooksController < ApplicationController
         b.favorited_users.includes(:favorites).where(created_at: from...to).size <=> 
         a.favorited_users.includes(:favorites).where(created_at: from...to).size
       }
-    binding.pry
+    # binding.pry
 
     @new_book = current_user.books.new
   end
