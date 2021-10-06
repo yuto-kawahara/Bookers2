@@ -20,5 +20,31 @@
   </div>
   <div class="col-md-8 offset-md-1">
     <%= render 'books/list', all_books: @all_books %>
+    <h4>投稿数の前日比・前週比</h4>
+    <% count_set %>
+    <table class="post_count_table">
+      <tr>
+        <th>今日の投稿数</th>
+        <th>前日の投稿数</th>
+        <th>前日比</th>
+      </tr>
+      <tr>
+        <td><%= @today %></td>
+        <td><%= @yesterday %></td>
+        <td><%= @dod %></td>
+      </tr>
+    </table>
+    <table class="post_count_table">
+      <tr>
+        <th>今週の投稿数</th>
+        <th>先週の投稿数</th>
+        <th>前週比</th>
+      </tr>
+      <tr>
+        <td><%= @this %></td>
+        <td><%= @last %></td>
+        <td><%= @wow %></td>
+      </tr>
+    </table>
   </div>
 </div>
