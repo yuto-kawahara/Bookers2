@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_06_013601) do
+ActiveRecord::Schema.define(version: 2021_10_06_043422) do
 
   create_table "book_comments", force: :cascade do |t|
     t.text "comment"
@@ -130,6 +130,21 @@ ActiveRecord::Schema.define(version: 2021_10_06_013601) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "tag_maps", force: :cascade do |t|
+    t.integer "book_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_tag_maps_on_book_id"
+    t.index ["tag_id"], name: "index_tag_maps_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "tag_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -153,4 +168,6 @@ ActiveRecord::Schema.define(version: 2021_10_06_013601) do
   add_foreign_key "messages", "users"
   add_foreign_key "relationships", "users", column: "followed_id"
   add_foreign_key "relationships", "users", column: "follower_id"
+  add_foreign_key "tag_maps", "books"
+  add_foreign_key "tag_maps", "tags"
 end

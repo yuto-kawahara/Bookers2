@@ -61,7 +61,11 @@
         <% end %>
       </div>
       <div id="evaluate_stars">
-        <label>評価</label>
+        <label>Rate</label>
+      </div>
+      <div class="form-group">
+        <%= book.label:Tag %>
+        <%= book.text_field :tag_name, class: "form-control" %>        
       </div>
       <div class="form-group">
         <%= book.submit 'Create Book', class: "btn btn-success" %>

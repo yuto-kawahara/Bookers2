@@ -7,6 +7,8 @@ class Book < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true, length: { maximum: 200 }
   is_impressionable counter_cache: true
+  has_many :tag_maps, dependent: :destroy
+  has_many :tags, through: :tag_maps
 
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
@@ -43,5 +45,11 @@ class Book < ApplicationRecord
       notification.checked = true
     end
     notification.save if notification.valid?
+  end
+
+  def save_tag(sent_tag)
+    new_book_tag = Tag.find_or_create_by(tag_name: sent_tag)
+    self.tags << new_book_tag
+    binding.pry
   end
 end

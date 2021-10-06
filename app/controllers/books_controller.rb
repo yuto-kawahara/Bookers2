@@ -16,8 +16,7 @@ class BooksController < ApplicationController
       @all_books = Book.all.order(evaluation: "DESC")
     else
       @all_books = Book.all
-    end
-
+    end    
     # binding.pry
 
     @new_book = current_user.books.new
@@ -36,7 +35,9 @@ class BooksController < ApplicationController
   def create
     @new_book = Book.new(book_params)
     @new_book.user_id = current_user.id
+    tag_list = params[:book][:tag_name]
     if @new_book.save
+      @new_book.save_tag(tag_list)
       redirect_to book_path(@new_book.id), notice: "You have created book successfully."
     else
       @all_books = Book.all
@@ -68,6 +69,17 @@ class BooksController < ApplicationController
     redirect_to books_path
   end
   
+  def search
+    @new_book = current_user.books.new
+    @tag = Tag.find_by(tag_name: params[:tag_name])
+    if @tag.nil?
+      redirect_to books_path
+    else
+      @all_books = @tag.books
+      render :index  
+    end
+  end
+
   private
   
   def book_params
