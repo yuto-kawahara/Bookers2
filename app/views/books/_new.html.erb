@@ -60,8 +60,20 @@
           <%= book.text_area :body, class: "form-control" %>
         <% end %>
       </div>
+      <div id="evaluate_stars">
+        <label>評価</label>
+      </div>
       <div class="form-group">
         <%= book.submit 'Create Book', class: "btn btn-success" %>
       </div>
   </table>
 <% end %>
+<script>
+  $('#evaluate_stars').raty({
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    scoreName: 'book[evaluation]', //登録するモデル名とカラム名を記述
+    half: true
+  });
+</script>
