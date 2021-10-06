@@ -6,6 +6,8 @@
   </div>
   <div class="col-md-8 offset-md-1">
     <h2>Books</h2>
+    <%= link_to "新着順", books_path(sort: "new_list") %> |
+    <%= link_to "評価順", books_path(sort: "rank_list") %>
     <%= render 'books/list', all_books: @all_books %>
   </div>
 </div>  

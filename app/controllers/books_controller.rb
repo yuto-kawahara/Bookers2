@@ -9,6 +9,15 @@ class BooksController < ApplicationController
         b.favorited_users.includes(:favorites).where(created_at: from...to).size <=> 
         a.favorited_users.includes(:favorites).where(created_at: from...to).size
       }
+
+    if (params[:sort] == "new_list")
+      @all_books = Book.all.order(created_at: "DESC")
+    elsif (params[:sort] == "rank_list")
+      @all_books = Book.all.order(evaluation: "DESC")
+    else
+      @all_books = Book.all
+    end
+
     # binding.pry
 
     @new_book = current_user.books.new
