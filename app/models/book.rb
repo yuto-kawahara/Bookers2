@@ -50,6 +50,5 @@ class Book < ApplicationRecord
   def save_tag(sent_tag)
     new_book_tag = Tag.find_or_create_by(tag_name: sent_tag)
     self.tags << new_book_tag
-    binding.pry
   end
 end

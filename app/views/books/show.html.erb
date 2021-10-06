@@ -29,7 +29,7 @@
           <td class="book-evaluation" data-score="<%= @book.evaluation %>"></td>
           <td>
             <% @book.tags.each do |tag| %>
-              <%= tag.tag_name %><br>
+              <%= link_to tag.tag_name, books_search_path(tag_name: tag.tag_name), method: :get %><br>
             <% end %>
           </td>
           <% if @book.user == current_user %>
