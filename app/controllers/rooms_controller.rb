@@ -20,6 +20,7 @@ class RoomsController < ApplicationController
       @message = Message.new
       # 現在ルーム内にいるユーザーの情報を取得
       @entries = @room.entries
+      binding.pry
     else
       redirect_back(fallback_location: root_path)
     end

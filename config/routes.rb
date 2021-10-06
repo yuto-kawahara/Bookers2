@@ -19,5 +19,9 @@ Rails.application.routes.draw do
   resources :notifications, only: :index
   resources :messages, only: [:create]
   resources :rooms, only: [:create,:show]
-  resources :groups
+  resources :groups do
+    resource :group_users, only: [:create, :destroy]
+    get "new/mail" => "groups#new_mail"
+    get "send/mail" => "groups#send_mail"
+  end
 end

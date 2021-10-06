@@ -8,11 +8,11 @@ class GroupsController < ApplicationController
   end
   def create
     group = Group.new(group_params)
-
+    group.save
+    group_users = GroupUser.new(group_id: group.id, user_id: current_user.id)
+    group_users.save
     # binding.pry
-    if group.save
-      redirect_to groups_path
-    end
+    redirect_to groups_path
   end
   def update
     @group = Group.find(params[:id])
@@ -26,11 +26,31 @@ class GroupsController < ApplicationController
   end
   def show
     @group = Group.find(params[:id])
+    @group_user = GroupUser.where(:group_id => @group.id)
+    # binding.pry
 
+    @new_book = current_user.books.new
   end
   def edit
     @group = Group.find(params[:id])
   end
+
+  def new_mail
+    @group = Group.find(params[:group_id])
+  end
+
+  def send_mail
+    @group = Group.find(params[:group_id])
+    group_users = @group.group_users
+    @mail_title = params[:mail_title]
+    @mail_content = params[:mail_content]
+    group_users.each do |gu|
+      AdminMailer.send_mail(@mail_title, @mail_content, gu.user).deliver
+    end
+
+  end
+
+
   private
 
   def group_params
