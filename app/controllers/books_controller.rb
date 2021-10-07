@@ -1,24 +1,25 @@
-class BooksController < ApplicationController
+﻿class BooksController < ApplicationController
   impressionist :actions=> [:show], unique: [:impressionable_id, :ip_address]
   def index
     @all_users = User.all
     to  = Time.current.at_end_of_day
     from  = (to - 6.day).at_beginning_of_day
-    @all_books = Book.includes(:favorited_users).
-      sort {|a,b| 
-        b.favorited_users.includes(:favorites).where(created_at: from...to).size <=> 
-        a.favorited_users.includes(:favorites).where(created_at: from...to).size
-      }
+    # @all_books = Book.includes(:favorited_users).
+    #   sort {|a,b| 
+    #     b.favorited_users.includes(:favorites).where(created_at: from...to).size <=> 
+    #     a.favorited_users.includes(:favorites).where(created_at: from...to).size
+    #   }
 
     if (params[:sort] == "new_list")
       @all_books = Book.all.order(created_at: "DESC")
     elsif (params[:sort] == "rank_list")
       @all_books = Book.all.order(evaluation: "DESC")
     else
-      @all_books = Book.all
+      @all_books = Book.includes(:user,:book_comments,:favorites,:notifications,:tags,:impressions)
     end    
+    # @users = User.includes(:books, :favorites, :book_comments, :follower, :followed, :active_notifications, :passive_notifications, :messages, :entries, :group_users)
+    # @user = @users.find(current_user.id)
     # binding.pry
-
     @new_book = current_user.books.new
   end
   

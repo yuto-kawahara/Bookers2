@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_06_043422) do
+ActiveRecord::Schema.define(version: 2021_10_07_123116) do
 
   create_table "book_comments", force: :cascade do |t|
     t.text "comment"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 2021_10_06_043422) do
     t.integer "user_id"
     t.integer "impressions_count"
     t.float "evaluation"
+    t.integer "book_comments_count", default: 0, null: false
+    t.integer "favorites_count", default: 0, null: false
   end
 
   create_table "entries", force: :cascade do |t|

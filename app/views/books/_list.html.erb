@@ -25,12 +25,14 @@
             <%= link_to tag.tag_name, books_search_path(tag_name: tag.tag_name), method: :get %><br>
           <% end %>
         </td>
-        <td>
-          <div id="favorite_btn_<%= book.id %>">
-             <%= render partial: 'favorites/favorites-btn', locals: { book: book} %>
-          </div>
-        </td>
-        <td>コメント数: <%= book.book_comments.count %></td>
+        <% if book.user != current_user %>
+          <td>
+            <div id="favorite_btn_<%= book.id %>">
+               <%= render partial: 'favorites/favorites-btn', locals: { book: book} %>
+            </div>
+          </td>
+        <% end %>
+        <td>コメント数: <%= book.book_comments_count %></td>
         <td>閲覧数：<%= book.impressionist_count %></td>
       </tr>
     <% end %>
