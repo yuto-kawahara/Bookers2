@@ -46,5 +46,61 @@
         <td><%= @wow %></td>
       </tr>
     </table>
+
+    <div>
+      <% book_post_7days %>
+      <h4>7日間分の投稿数</h4>
+      <table class="post_7days_table">
+        <tr>
+          <% @date.reverse.each do |d| %>
+            <th><%= d %></th>
+          <% end %>     
+        </tr>
+        <tr>
+          <% @count.reverse.each do |cnt| %>
+            <td><%= cnt %></td>
+          <% end %>     
+        </tr>
+      </table>
+      <canvas id="myChart"></canvas>
+    </div>
   </div>
 </div>
+<script>
+  $(document).on('turbolinks:load', function() {
+  var ctx = document.getElementById("myChart");
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['6日前','5日前','4日前','3日前','2日前','1日前','今日',],
+      datasets: [
+        {
+          yAxisID: 'yaxes_1',
+          label: '投稿した本の数',
+          data: <%= @count.reverse %>,
+          borderColor: "rgba(0,0,255,1)",
+          backgroundColor: "rgba(0,0,0,0)",
+          lineTension: 0.5,
+        }]
+    },
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: '7日間分の投稿数'
+        }
+      },
+      scale: {
+        "yaxes_1": {
+          display: true,
+          min: 0,
+          max: 10,
+          ticks: {
+            stepSize: 1 
+          } 
+        }
+      }
+    }
+  });
+  });
+</script>
