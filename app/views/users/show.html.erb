@@ -62,7 +62,18 @@
           <% end %>     
         </tr>
       </table>
+    </div>
+    <div>
       <canvas id="myChart"></canvas>
+    </div>
+    <div>
+      <%= form_with(url: books_count_search_path, method: :get, remote:true) do |f| %>
+        <%= f.date_field :sample_at, class: "form-control" %>
+        <%= f.submit '検索', class: "btn btn-success" %>
+      <% end %>
+      <div id="search_result">
+        <%= render partial: "books/count_search", locals: { book_count: @book_count, show: @show} %>
+      </div>
     </div>
   </div>
 </div>

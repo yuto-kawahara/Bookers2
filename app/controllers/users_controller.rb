@@ -8,6 +8,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @new_book = @user.books.new
     @all_books = @user.books.all
+    
+    @book_count = 0
+    @show = "hidden"
     # 現在ログイン中のユーザーのエントリー情報を取得
     @currentUserEntry=Entry.where(user_id: current_user.id)
     # 他ユーザーのエントリー情報を取得

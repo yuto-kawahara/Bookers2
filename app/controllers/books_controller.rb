@@ -80,6 +80,14 @@ class BooksController < ApplicationController
     end
   end
 
+  def count_search
+    date = params[:sample_at].in_time_zone.all_day
+    @book_count = current_user.books.where(created_at: date).count
+    @show = "show"
+    # binding.pry
+    # redirect_back(fallback_location: root_path)
+  end
+
   private
   
   def book_params
